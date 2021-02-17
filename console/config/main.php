@@ -1,4 +1,7 @@
 <?php
+
+use console\services\GenerateService;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -30,6 +33,9 @@ return [
                 ],
             ],
         ],
+
+        // Дефолтная конфигурация сервисов
+        GenerateService::class => GenerateService::class,
     ],
     'params' => $params,
 ];
