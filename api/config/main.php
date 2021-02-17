@@ -39,6 +39,12 @@ return [
                 'GET    /v1/access-tokens' => '/v1/access-token/get-list',
                 'GET    /v1/access-tokens/<id:\d+>' => '/v1/access-token/get',
                 'DELETE /v1/access-tokens/<id:\d+>' => '/v1/access-token/delete',
+                // Пользователь
+                'POST   /v1/users' => '/v1/user/post',
+                'GET    /v1/users' => '/v1/user/get-list',
+                'GET    /v1/users/<id:\d+>' => '/v1/user/get',
+                'PUT    /v1/users/<id:\d+>' => '/v1/user/put',
+                'DELETE /v1/users/<id:\d+>' => '/v1/user/delete',
             ],
         ],
     ],

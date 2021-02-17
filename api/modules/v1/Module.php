@@ -3,6 +3,8 @@
 namespace api\modules\v1;
 
 use api\modules\v1\services\AccessTokenCrudService;
+use api\modules\v1\services\UserCrudService;
+use yii\base\InvalidConfigException;
 
 class Module extends \yii\base\Module
 {
@@ -14,6 +16,7 @@ class Module extends \yii\base\Module
 
     /**
      * {@inheritDoc}
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -22,6 +25,9 @@ class Module extends \yii\base\Module
         // Дефолтная конфигурация сервисов модуля.
         if (!$this->has(AccessTokenCrudService::class)) {
             $this->set(AccessTokenCrudService::class, AccessTokenCrudService::class);
+        }
+        if (!$this->has(UserCrudService::class)) {
+            $this->set(UserCrudService::class, UserCrudService::class);
         }
     }
 

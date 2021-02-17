@@ -89,23 +89,23 @@ class AccessTokenController extends Controller
     public function actionPost(AccessTokenCrudService $service): AccessTokenResource
     {
         // Создаем объект ресурса и загружаем в него данные из запроса
-        $object = new AccessTokenResource;
-        $object->load($this->request->bodyParams, '');
+        $tokenResource = new AccessTokenResource;
+        $tokenResource->load($this->request->bodyParams, '');
 
-        if ($object->validate()) {
+        if ($tokenResource->validate()) {
             // Создаем запись в БД
-            $model = $service->create($object);
+            $token = $service->create($tokenResource);
 
             $this->response->setStatusCode(201);
             $this->response->getHeaders()
-                ->set('Location', Url::toRoute(['get', 'id' => $model->id], true));
+                ->set('Location', Url::toRoute(['get', 'id' => $token->id], true));
 
             // Возвращаем ресурс для созданной записи
-            return $service->get($model);
+            return $service->get($token);
         }
 
         // Возвращаем ресурс с ошибками валидации
-        return $object;
+        return $tokenResource;
     }
 
     /**

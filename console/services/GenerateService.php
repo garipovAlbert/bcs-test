@@ -41,6 +41,7 @@ class GenerateService extends Component
                 $user = new User($data);
                 $user->generateAuthKey();
                 $user->generateEmailVerificationToken();
+                $user->status = User::STATUS_ACTIVE;
                 $user->save(false);
             }
 
