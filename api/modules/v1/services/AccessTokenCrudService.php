@@ -31,13 +31,13 @@ class AccessTokenCrudService extends Component
      */
     public function getList(User $user): array
     {
-        $allTokens = AccessToken::find()
+        $tokens = AccessToken::find()
             ->andWhere(['user_id' => $user->id])
             ->all();
 
         return array_map(
             fn(AccessToken $token) => (new AccessTokenResource)->mapAccessToken($token),
-            $allTokens
+            $tokens
         );
     }
 

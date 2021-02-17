@@ -16,7 +16,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
- * Контроллер для токена доступа (bearer).
+ * Контроллер для Токена Доступа (bearer).
  */
 class AccessTokenController extends Controller
 {

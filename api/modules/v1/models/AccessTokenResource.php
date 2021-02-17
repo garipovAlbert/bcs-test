@@ -7,7 +7,7 @@ use common\models\User;
 use yii\base\Model;
 
 /**
- * Ресурс токена доступа (bearer).
+ * Ресурс Токена Доступа (bearer).
  */
 class AccessTokenResource extends Model
 {
@@ -76,13 +76,13 @@ class AccessTokenResource extends Model
     }
 
     /**
-     * @param AccessToken $record
+     * @param AccessToken $token
      * @return AccessTokenResource
      */
-    public function mapAccessToken(AccessToken $record): self
+    public function mapAccessToken(AccessToken $token): self
     {
-        $this->id = $record->id;
-        $this->value = $record->value;
+        $this->id = $token->id;
+        $this->value = $token->value;
 
         return $this;
     }

@@ -58,9 +58,9 @@ class UserController extends Controller
      */
     public function actionGet($id, UserCrudService $service): UserResource
     {
-        $token = $this->find($id);
+        $user = $this->find($id);
 
-        return $service->get($token);
+        return $service->get($user);
     }
 
     /**
