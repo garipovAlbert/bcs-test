@@ -44,7 +44,6 @@ class UserController extends Controller
             ],
             'authenticator' => [
                 'class' => HttpBearerAuth::class,
-                'only' => ['get', 'get-list', 'delete'],
             ],
         ]);
     }
