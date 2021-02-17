@@ -1,60 +1,52 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
-    <br>
-</p>
+КОНФИГУРАЦИЯ
+------------
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+* PHP 7.4
+* MySQL
+* nginx
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+УСТАНОВКА
+------------
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+###### - Загрузите код репозитория
+~~~
+git clone git@github.com:garipovAlbert/bcs-test.git
+~~~
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+###### - Загрузите файлы сторонних библиотек с помощью Composer
+~~~
+composer install
+~~~ 
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![build](https://github.com/yiisoft/yii2-app-advanced/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-advanced/actions?query=workflow%3Abuild)
+###### - Выполните команду init (https://github.com/yiisoft/yii2-app-advanced/blob/master/init)
+~~~
+php init
+~~~ 
 
-DIRECTORY STRUCTURE
--------------------
+###### - Создайте базу данных MySQL и настройте подключение к ней в файле /common/config/main-local.php 
 
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
+###### - Выполните миграцию
+~~~
+php yii migrate
+~~~
+
+###### - Сгенерируйте тестовых пользователей
+~~~
+php yii generate/users
+~~~
+
+###### - Настройте виртуальный хост веб-сервера для папки /api/web
+Пример конфига: https://github.com/yiisoft/yii2-app-advanced/blob/master/vagrant/nginx/app.conf (только для php 7.4)
+
+
+ОПИСАНИЕ
+-------------
+Данное техническое задание реализовано на базе Yii 2 Advanced Project Template (https://github.com/yiisoft/yii2-app-advanced) с минимальными изменениями. API вынесено в отдельное приложение с соответсвующим названием (backend и frontend не тронуты).
+
+REST предполагает реализацию методов для манипуляции конкретными объектами - ресурсами или коллекциями ресурсов (которые по сути тоже являются ресурсами). В данном коде ресурсы инкапсулированы в специальных классах, например UserResource, которые наследуют yii\base\Model.
+
+Бизнес-логика находится в сервисном слое отдельно от контроллеров. Сервисы конфигурируются через Service Locator приложения или модуля и могут при необходимости заменены на mock-объекты в конфиге для unit-тестов. Сервисы не зависят от контролеров и манипулируют исключительно объектами ресурсов и моделями Active Record.
+
+Авторизация выполнена в стиле REST: токен доступа Access Token для Bearer аутентификации существует в виде ресурса с методами создания, отображения, удаления.
+
+Для генерации тестовых пользователей была создана консольная команда (вместо миграции), т.к. для этого используется Active Record модель, которая в последствии может быть отрефакторена.
